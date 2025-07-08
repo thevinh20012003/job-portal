@@ -16,6 +16,7 @@ public class CustomUserDetail implements UserDetails {
         this.user = user;
     }
 
+    // return the role of the user
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         UsersType userType = user.getUserTypeId();

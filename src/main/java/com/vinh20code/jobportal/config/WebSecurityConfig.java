@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     private final CustomUserDetailService customUserDetailService;
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     private final String[] publicUrl = {"/",
             "/global-search/**",
             "/register",
@@ -57,6 +58,7 @@ public class WebSecurityConfig {
     }
 
     // ROLE: XÁC THỰC THÔNG TIN USER
+    // tell spring how to find user information and how to authenticate password
     @Bean
     protected AuthenticationProvider authenticationProvider() {
         // DaoAuthenticationProvider là một AuthenticationProvider được sử dụng để xác thực người dùng dựa trên thông tin từ cơ sở dữ liệu.
@@ -74,10 +76,10 @@ public class WebSecurityConfig {
 //    1. thêm depedencies vào maven
 //    2. Cấu hình Spring security:
 //            Annotate class bằng @Configuration.
-//            Tạo phương thức securityFilterChain (annotate với @Bean) để Spring Security biết đến.
+//            Tạo  phương thức securityFilterChain (annotate với @Bean)để Spring Security biết đến.
 //            Tạo mảng String chứa các public URL (ví dụ: /register, /css/**, /js/**) – những URL này không yêu cầu đăng nhập.
 //            Trong cấu hình httpSecurity:
-//                Cho phép tất cả mọi người (permitAll()) truy cập các URL public.
+//                Chmo phép tất cả mọi người (peritAll()) truy cập các URL public.
 //                Các request khác thì yêu cầu đăng nhập (authenticated()).
 //    Bước 3: Custom User Authentication & Authorization
 //            Tạo AuthenticationProvider:
