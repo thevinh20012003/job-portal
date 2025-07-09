@@ -7,8 +7,10 @@ import java.util.List;
 @Entity
 @Table(name = "job_seeker_profile")
 public class JobSeekerProfile {
+
     @Id
-    private int userAccountId;
+    private Integer userAccountId;
+
     @OneToOne
     @JoinColumn(name = "user_account_id")
     @MapsId
@@ -19,39 +21,43 @@ public class JobSeekerProfile {
     private String city;
     private String state;
     private String country;
-    private String resume;
     private String workAuthorization;
     private String employmentType;
+    private String resume;
+
     @Column(nullable = true, length = 64)
     private String profilePhoto;
-    @OneToMany(targetEntity = Skills.class,
-            mappedBy = "jobSeekerProfile",
-            cascade = CascadeType.ALL)
+
+    @OneToMany(targetEntity = Skills.class, cascade = CascadeType.ALL, mappedBy = "jobSeekerProfile")
     private List<Skills> skills;
 
-    @Override
-    public String toString() {
-        return "JobSeekerProfile{" +
-                "userAccountId=" + userAccountId +
-                ", userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                ", resume='" + resume + '\'' +
-                ", workAuthorization='" + workAuthorization + '\'' +
-                ", employmentType='" + employmentType + '\'' +
-                ", profilePhoto='" + profilePhoto + '\'' +
-                ", skills=" + skills +
-                '}';
+    public JobSeekerProfile() {
     }
 
-    public int getUserAccountId() {
+    public JobSeekerProfile(Users userId) {
+        this.userId = userId;
+    }
+
+    public JobSeekerProfile(Integer userAccountId, Users userId, String firstName, String lastName, String city, String state, String country, String workAuthorization, String employmentType, String resume, String profilePhoto, List<Skills> skills) {
+        this.userAccountId = userAccountId;
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.workAuthorization = workAuthorization;
+        this.employmentType = employmentType;
+        this.resume = resume;
+        this.profilePhoto = profilePhoto;
+        this.skills = skills;
+    }
+
+    public Integer getUserAccountId() {
         return userAccountId;
     }
 
-    public void setUserAccountId(int userAccountId) {
+    public void setUserAccountId(Integer userAccountId) {
         this.userAccountId = userAccountId;
     }
 
@@ -103,14 +109,6 @@ public class JobSeekerProfile {
         this.country = country;
     }
 
-    public String getResume() {
-        return resume;
-    }
-
-    public void setResume(String resume) {
-        this.resume = resume;
-    }
-
     public String getWorkAuthorization() {
         return workAuthorization;
     }
@@ -125,6 +123,14 @@ public class JobSeekerProfile {
 
     public void setEmploymentType(String employmentType) {
         this.employmentType = employmentType;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
     }
 
     public String getProfilePhoto() {
@@ -143,24 +149,26 @@ public class JobSeekerProfile {
         this.skills = skills;
     }
 
-    public JobSeekerProfile() {
-    }
-    public JobSeekerProfile(Users users ) {
-        this.userId = users;
+    @Transient
+    public String getPhotosImagePath() {
+        if (profilePhoto == null || userAccountId == null) return null;
+        return "/photos/candidate/" + userAccountId + "/" + profilePhoto;
     }
 
-    public JobSeekerProfile(int userAccountId, Users userId, String firstName, String lastName, String city, String state, String country, String resume, String workAuthorization, String employmentType, String profilePhoto, List<Skills> skills) {
-        this.userAccountId = userAccountId;
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.resume = resume;
-        this.workAuthorization = workAuthorization;
-        this.employmentType = employmentType;
-        this.profilePhoto = profilePhoto;
-        this.skills = skills;
+    @Override
+    public String toString() {
+        return "JobSeekerProfile{" +
+                "userAccountId=" + userAccountId +
+                ", userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", country='" + country + '\'' +
+                ", workAuthorization='" + workAuthorization + '\'' +
+                ", employmentType='" + employmentType + '\'' +
+                ", resume='" + resume + '\'' +
+                ", profilePhoto='" + profilePhoto + '\'' +
+                '}';
     }
 }
