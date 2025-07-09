@@ -53,14 +53,20 @@ public class RecruiterProfileController {
     public String addNew(RecruiterProfile recruiterProfile, @RequestParam("image") MultipartFile multipartFile, Model model) {
         // This method is not implemented in the original code snippet.
         // You can implement it as needed to handle adding a new recruiter profile.
+        // Lấy username đang đăng nhập
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUsername = authentication.getName();
+            // Tìm user tương ứng trong database:
             Users users = usersRepository.findByEmail(currentUsername).orElseThrow(() -> new UsernameNotFoundException("Could not " + "found user"));
+            // Gán user vào RecruiterProfile
             recruiterProfile.setUserId(users);
             recruiterProfile.setUserAccountId(users.getUserId());
         }
         model.addAttribute("profile", recruiterProfile);
+//        Nếu có chọn ảnh:
+//        Lấy tên file ảnh, clean path (loại bỏ ký tự bất hợp lệ, chống lỗi path traversal).
+//                Gán tên ảnh vào thuộc tính profilePhoto của RecruiterProfile.
         String fileName = "";
         if (!multipartFile.getOriginalFilename().equals("")) {
             fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
@@ -70,6 +76,8 @@ public class RecruiterProfileController {
 
         String uploadDir = "photos/recruiter/" + savedUser.getUserAccountId();
         try {
+//            Chuyển file từ đối tượng MultipartFile sang một file vật lý thật trong ổ đĩa.
+//                    Ghi nội dung file vào ổ đĩa ở vị trí uploadDir/fileName.
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         } catch (Exception ex) {
             ex.printStackTrace();
