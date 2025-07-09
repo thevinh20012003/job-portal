@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Dashboard</title>
+    <meta charset="utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -70,6 +71,7 @@
             </li>
 
         </ul>
+
         <img
                 class="rounded-circle me-3"
                 height="50px"
@@ -77,6 +79,7 @@
                 th:if="${user.photosImagePath!=null}"
                 th:src="@{${user?.photosImagePath}}"
         />
+
         <label th:if="${user.firstName != null && user.lastName != null}"
                th:text="${user.firstName+' '+user.lastName}"
                class="nav-item nav-link px-2 me-3">
@@ -103,16 +106,18 @@
                         th:href="@{/job-details-apply/{id}(id=${jobPost.jobPostId})}"
                         style="text-decoration: none; color: black"
                 >
-                    <div class="job-row" onclick="window.location.href='[[@{/job-details-apply/{id}(id=${jobPost.jobPostId})}]]'">
-
-                    <div class="row">
+                    <div
+                            onclick="window.location=/job-details-apply/{id}(id=${jobPost.jobPostId})"
+                            class="job-row"
+                    >
+                        <div class="row">
                             <div class="col-md-4">
                                 <label class="job-title text-left">
                                     [[${jobPost.jobTitle}]]
                                     <span
                                             class="title-span"
                                             sec:authorize="hasAuthority('Recruiter')"
-                                            th:text="'('+ ${jobPost.totalCandidates}+' Candidates Applied)'"
+                                            th:text="'('+ @{${jobPost.totalCandidates}}+' Candidates Applied)'"
                                     >(xx candidates applied)</span
                                     >
                                     <span
