@@ -2,12 +2,13 @@ package com.vinh20code.jobportal.controller;
 
 import com.vinh20code.jobportal.entity.Users;
 import com.vinh20code.jobportal.entity.UsersType;
-import com.vinh20code.jobportal.service.UsersService;
-import com.vinh20code.jobportal.service.UsersTypeService;
+import com.vinh20code.jobportal.services.UsersService;
+import com.vinh20code.jobportal.services.UsersTypeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -30,7 +31,7 @@ public class UsersController {
         this.usersTypeService = usersTypeService;
         this.usersService = usersService;
     }
-    // oke
+
     @GetMapping("/register")
     public String register(Model model) {
         List<UsersType> usersTypes = usersTypeService.getAll();
@@ -39,7 +40,6 @@ public class UsersController {
         return "register";
     }
 
-    // oke
     @PostMapping("/register/new")
     public String userRegistration(@Valid Users users, Model model) {
         Optional<Users> optionalUsers = usersService.getUserByEmail(users.getEmail());
@@ -50,7 +50,7 @@ public class UsersController {
             model.addAttribute("user", new Users());
             return "register";
         }
-        usersService.addNew(users); 
+        usersService.addNew(users);
         return "redirect:/dashboard/";
     }
 
@@ -68,6 +68,6 @@ public class UsersController {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
 
-        return "redirect:/*";
+        return "redirect:/";
     }
 }

@@ -1,21 +1,19 @@
 package com.vinh20code.jobportal.entity;
 
 public class RecruiterJobsDto {
+
     private Long totalCandidates;
-    private Long jobPostId;
+    private Integer jobPostId;
     private String jobTitle;
     private JobLocation jobLocationId;
     private JobCompany jobCompanyId;
 
-    @Override
-    public String toString() {
-        return "RecruiterJobDto{" +
-                "totalCandidates=" + totalCandidates +
-                ", jobPostId=" + jobPostId +
-                ", jobTitle='" + jobTitle + '\'' +
-                ", jobLocationId=" + jobLocationId +
-                ", jobCompanyId=" + jobCompanyId +
-                '}';
+    public RecruiterJobsDto(Long totalCandidates, Integer jobPostId, String jobTitle, JobLocation jobLocationId, JobCompany jobCompanyId) {
+        this.totalCandidates = totalCandidates;
+        this.jobPostId = jobPostId;
+        this.jobTitle = jobTitle;
+        this.jobLocationId = jobLocationId;
+        this.jobCompanyId = jobCompanyId;
     }
 
     public Long getTotalCandidates() {
@@ -26,11 +24,11 @@ public class RecruiterJobsDto {
         this.totalCandidates = totalCandidates;
     }
 
-    public Long getJobPostId() {
+    public Integer getJobPostId() {
         return jobPostId;
     }
 
-    public void setJobPostId(Long jobPostId) {
+    public void setJobPostId(Integer jobPostId) {
         this.jobPostId = jobPostId;
     }
 
@@ -56,16 +54,5 @@ public class RecruiterJobsDto {
 
     public void setJobCompanyId(JobCompany jobCompanyId) {
         this.jobCompanyId = jobCompanyId;
-    }
-
-    public RecruiterJobsDto(Long totalCandidates, Long jobPostId, String jobTitle, JobLocation jobLocationId, JobCompany jobCompanyId) {
-        this.totalCandidates = totalCandidates;
-        this.jobPostId = jobPostId;
-        this.jobTitle = jobTitle;
-        this.jobLocationId = jobLocationId;
-        this.jobCompanyId = jobCompanyId;
-    }
-
-    public RecruiterJobsDto() {
     }
 }

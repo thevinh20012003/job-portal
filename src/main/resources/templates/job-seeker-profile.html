@@ -278,56 +278,58 @@
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 <script sec:authorize="hasAuthority('Recruiter')">
     console.log("Disable inputs");
-    $("input").prop( "disabled", true );
-    $("select").prop( "disabled", true );
-    $("button").prop( "disabled", true );
+  $("input").prop( "disabled", true );
+   $("select").prop( "disabled", true );
+       $("button").prop( "disabled", true );
 </script>
 <script>
-    var counter = 0;
-    $(document).on("click", "#addSkill", function (e) {
-        e.preventDefault();
-        counter++;
-        var newRow = jQuery("<div id='skill-repeat'><div class='row'>"+
-            "    <div class='col-md-4 pr-1'>"+
-            "     <input"+
-            "        hidden type='text'"+
-            "        class='form-control' "+
-            "        name='skills["+counter+"].Id'"+
-            "      />"+
-            "      <input"+
-            "        placeholder='Skill Name'"+
-            "        type='text'"+
-            "        class='form-control'"+
-            "        name='skills["+counter+"].name'"+
-            "      />"+
-            "    </div>"+
-            "    <div class='col-md-4 px-1'>"+
-            "      <input"+
-            "        placeholder='Years of Experience'"+
-            "        type='text'"+
-            "        class='form-control'"+
-            "        name='skills["+counter+"].yearsOfExperience'"+
-            "      />"+
-            "    </div>"+
-            "    <div class='form-group col-md-4 pl-1'>"+
-            "      <select"+
-            "        required"+
-            "        class='form-control'"+
-            "        name='skills["+counter+"].experienceLevel'"+
-            "      >"+
-            "        <option selected>Experience Level</option>"+
-            "        <option value='Beginner'>Beginner</option>"+
-            "        <option value='Intermediate'>Intermediate</option>"+
-            "        <option value='Advance'>Advance</option>"+
-            "      </select>"+
-            "    </div>"+
-            "  </div>"+
-            "</div>");
-        console.log(newRow);
-        $('#skill-repeat')
-            .parent('div.parent')
-            .append(newRow);
 
-    });
+
+    var counter = 0;
+     $(document).on("click", "#addSkill", function (e) {
+       e.preventDefault();
+       counter++;
+        var newRow = jQuery("<div id='skill-repeat'><div class='row'>"+
+                   "    <div class='col-md-4 pr-1'>"+
+                   "     <input"+
+                   "        hidden type='text'"+
+                   "        class='form-control' "+
+                   "        name='skills["+counter+"].Id'"+
+                   "      />"+
+                   "      <input"+
+                   "        placeholder='Skill Name'"+
+                   "        type='text'"+
+                   "        class='form-control'"+
+                   "        name='skills["+counter+"].name'"+
+                   "      />"+
+                   "    </div>"+
+                   "    <div class='col-md-4 px-1'>"+
+                   "      <input"+
+                   "        placeholder='Years of Experience'"+
+                   "        type='text'"+
+                   "        class='form-control'"+
+                   "        name='skills["+counter+"].yearsOfExperience'"+
+                   "      />"+
+                   "    </div>"+
+                   "    <div class='form-group col-md-4 pl-1'>"+
+                   "      <select"+
+                   "        required"+
+                   "        class='form-control'"+
+                   "        name='skills["+counter+"].experienceLevel'"+
+                   "      >"+
+                   "        <option selected>Experience Level</option>"+
+                   "        <option value='Beginner'>Beginner</option>"+
+                   "        <option value='Intermediate'>Intermediate</option>"+
+                   "        <option value='Advance'>Advance</option>"+
+                   "      </select>"+
+                   "    </div>"+
+                   "  </div>"+
+                   "</div>");
+        console.log(newRow);
+       $('#skill-repeat')
+         .parent('div.parent')
+         .append(newRow);
+
+     });
 </script>
 </html>

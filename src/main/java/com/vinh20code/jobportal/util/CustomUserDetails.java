@@ -10,18 +10,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomUserDetail implements UserDetails {
-    private final Users user;
-    public CustomUserDetail(Users user) {
+public class CustomUserDetails implements UserDetails {
+
+    private Users user;
+
+    public CustomUserDetails(Users user) {
         this.user = user;
     }
 
-    // return the role of the user
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        UsersType userType = user.getUserTypeId();
+        UsersType usersType = user.getUserTypeId();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(userType.getUserTypeName()));
+        authorities.add(new SimpleGrantedAuthority(usersType.getUserTypeName()));
         return authorities;
     }
 
@@ -34,18 +35,22 @@ public class CustomUserDetail implements UserDetails {
     public String getUsername() {
         return user.getEmail();
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Override
     public boolean isEnabled() {
         return true;

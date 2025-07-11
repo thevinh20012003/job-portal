@@ -1,6 +1,7 @@
 package com.vinh20code.jobportal.entity;
 
 public interface IRecruiterJobs {
+
     Long getTotalCandidates();
 
     int getJob_post_id();

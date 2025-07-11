@@ -1,11 +1,11 @@
-package com.vinh20code.jobportal.service;
+package com.vinh20code.jobportal.services;
 
 import com.vinh20code.jobportal.entity.JobSeekerProfile;
 import com.vinh20code.jobportal.entity.RecruiterProfile;
 import com.vinh20code.jobportal.entity.Users;
 import com.vinh20code.jobportal.repository.JobSeekerProfileRepository;
 import com.vinh20code.jobportal.repository.RecruiterProfileRepository;
-import com.vinh20code.jobportal.repository.UserRepository;
+import com.vinh20code.jobportal.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,13 +21,13 @@ import java.util.Optional;
 @Service
 public class UsersService {
 
-    private final UserRepository usersRepository;
+    private final UsersRepository usersRepository;
     private final JobSeekerProfileRepository jobSeekerProfileRepository;
     private final RecruiterProfileRepository recruiterProfileRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsersService(UserRepository usersRepository, JobSeekerProfileRepository jobSeekerProfileRepository, RecruiterProfileRepository recruiterProfileRepository, PasswordEncoder passwordEncoder) {
+    public UsersService(UsersRepository usersRepository, JobSeekerProfileRepository jobSeekerProfileRepository, RecruiterProfileRepository recruiterProfileRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
         this.jobSeekerProfileRepository = jobSeekerProfileRepository;
         this.recruiterProfileRepository = recruiterProfileRepository;
@@ -47,6 +47,7 @@ public class UsersService {
         else {
             jobSeekerProfileRepository.save(new JobSeekerProfile(savedUser));
         }
+
         return savedUser;
     }
 
@@ -69,6 +70,7 @@ public class UsersService {
 
         return null;
     }
+
     public Users getCurrentUser() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -81,7 +83,21 @@ public class UsersService {
         return null;
     }
 
+    public Users findByEmail(String currentUsername) {
+        return usersRepository.findByEmail(currentUsername).orElseThrow(() -> new UsernameNotFoundException("User not " +
+                "found"));
+    }
+
     public Optional<Users> getUserByEmail(String email) {
         return usersRepository.findByEmail(email);
     }
+    
 }
+
+
+
+
+
+
+
+
