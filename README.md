@@ -19,4 +19,5 @@ This is a Spring Boot project for building a full-featured Job Portal web applic
 ## Spring Boot Job Portal Project
 - Recruiter can create new job posts
 - Job candidate can search for new jobs and apply
-
+## Database
+- https://drive.google.com/drive/folders/1uLarcOrtNJNDPj2Rh5gqF-JfFouS3spP
