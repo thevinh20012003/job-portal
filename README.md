@@ -9,10 +9,14 @@ This is a Spring Boot project for building a full-featured Job Portal web applic
 - Admin dashboard
 
 ## Technologies
-- Java, Spring Boot
+- Spring Boot 3
+- Spring MVC
 - Thymeleaf
+- Spring Security
+- Spring Data JPA
 - Hibernate/JPA
-- MySQL
-- Bootstrap
-
+- MySQL database
+## Spring Boot Job Portal Project
+- Recruiter can create new job posts
+- Job candidate can search for new jobs and apply
 
